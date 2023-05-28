@@ -11,8 +11,9 @@ export default class JwtUtil {
         try {
             const decode = jwt.verify(token, this.secretKey);
             return decode
-        } catch (err) {
-            return err
+        } catch (ok) {
+            //验证错误
+            return ""
         }
     }
 }
