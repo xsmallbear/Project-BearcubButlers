@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import logger from "morgan"
 
-import verify from './src/routes/systemUser';
+import verify from './src/routes/verify';
 
 const app: Express = express();
 const port: Number = 8080;
