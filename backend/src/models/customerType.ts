@@ -1,4 +1,4 @@
-export default class customerType {
+export default class CustomerType {
     uid: String
     name: String
     parentId: String

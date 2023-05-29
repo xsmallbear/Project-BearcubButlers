@@ -1,4 +1,4 @@
-export default class productAndProductTag {
+export default class ProductAndProductTag {
     uid: String
     productUid: String
     productTagUid: String

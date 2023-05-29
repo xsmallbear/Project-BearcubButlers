@@ -1,4 +1,4 @@
-export default class employeeAndSystemUser {
+export default class EmployeeAndSystemUser {
     uid: String
     employeeUid: String
     systemUserUid: String

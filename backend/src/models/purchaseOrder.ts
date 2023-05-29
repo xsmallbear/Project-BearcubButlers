@@ -1,4 +1,4 @@
-export default class purchaseOrder {
+export default class PurchaseOrder {
     uid: String
     id: String
     supplierUid: String

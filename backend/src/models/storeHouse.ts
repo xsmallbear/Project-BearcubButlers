@@ -1,4 +1,4 @@
-export default class storeHouse {
+export default class StoreHouse {
     uid: String
     id: String
     name: String

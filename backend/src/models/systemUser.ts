@@ -1,4 +1,4 @@
-export default class systemUser {
+export default class SystemUser {
     uid: String
     id: String
     name: String

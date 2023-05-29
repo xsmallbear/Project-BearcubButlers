@@ -1,4 +1,4 @@
-export default class brand {
+export default class Brand {
     uuid: String
     name: String
     createTime: Date

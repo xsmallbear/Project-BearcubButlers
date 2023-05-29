@@ -1,4 +1,4 @@
-export default class product {
+export default class Product {
     uid: String
     id: String
     productTypeUid: String

@@ -1,4 +1,4 @@
-export default class supplier {
+export default class Supplier {
     uid: String
     id: String
     typeUid: String

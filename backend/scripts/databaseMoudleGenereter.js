@@ -44,7 +44,7 @@ const handleColumns = (tableName) => {
         for (let i = 0; i < tableNames.length; i++) {
             const tableName = tableNames[i]
             const columns = await handleColumns(tableName)
-            let resultStr = `export default class ${tableName}`
+            let resultStr = `export default class ${tableName[0].toUpperCase() + tableName.substring(1)}`
             let constructorStr = "constructor("
             let constructorInStr = ""
             resultStr = resultStr + "{\n"

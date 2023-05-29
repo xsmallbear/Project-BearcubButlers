@@ -1,4 +1,4 @@
-export default class employee {
+export default class Employee {
     uid: String
     id: String
     realName: String

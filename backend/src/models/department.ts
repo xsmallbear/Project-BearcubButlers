@@ -1,4 +1,4 @@
-export default class department {
+export default class Department {
     uid: String
     id: String
     name: String
