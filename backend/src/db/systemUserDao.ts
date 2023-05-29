@@ -39,7 +39,8 @@ export default class SystemUserDao {
      * @param newUser
      */
     static async insertSystemUser(newUser: SystemUser) {
-        await knexInstance("systemUser")
+        await knexInstance
+            .from<SystemUser>("systemUser")
             .insert(newUser)
     }
 

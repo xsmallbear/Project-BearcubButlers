@@ -34,7 +34,7 @@ export default class SystemUserController {
         } else {
             //登入成功
             //jwt
-            const token = JwtUtil.sign({ userName: userName }, { expiresIn: "1h" })
+            const token = JwtUtil.sign({ userName: userName }, { expiresIn: "30s" })
             res.send({ statu: true, token: token })
         }
     }
@@ -79,7 +79,7 @@ export default class SystemUserController {
             new Date()
         );
 
-        SystemUserDao.insertSystemUser(newSystemUser)
+        await SystemUserDao.insertSystemUser(newSystemUser)
         res.send({ statu: false, message: "注册成功" })
     }
 

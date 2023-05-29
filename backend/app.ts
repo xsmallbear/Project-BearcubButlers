@@ -6,6 +6,7 @@ import supplier from './src/routes/supplier';
 import emojiLogger from './src/middlewares/emojiLogger';
 import suppliertype from './src/routes/supplierType';
 import cors from "cors"
+import loginVerify from './src/middlewares/loginVerify';
 
 const app: Express = express();
 const port: Number = 8080;
@@ -16,6 +17,9 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cors())
 
 const rootRouter: Router = express.Router()
+
+rootRouter.use(loginVerify(["/verify"]))
+
 rootRouter.use("/verify", verify)
 rootRouter.use("/supplier", supplier)
 rootRouter.use("/supplierType", suppliertype)

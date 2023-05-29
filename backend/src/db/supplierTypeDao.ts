@@ -40,4 +40,36 @@ export default class SupplierTypeDao {
             .where("name", name)
         return result
     }
+
+    /**
+     * 添加一个新的供应商类型
+     * @param supplierType 
+     */
+    static async inserSupplierType(supplierType: SupplierType) {
+        await knexInstance
+            .from<SupplierType>("supplierType")
+            .insert(supplierType)
+    }
+
+    /**
+     * 修改供应商类型
+     * @param supplierType 
+     */
+    static async updateSupllierType(supplierType: SupplierType) {
+        await knexInstance
+            .from<SupplierType>("supplierType")
+            .where("uid", supplierType.uid)
+            .update(supplierType)
+    }
+
+    /**
+     * 查询当前uid的所有子类
+     * @param uid 
+     */
+    static async selectUidSubTypeByUid(uid: string) {
+        const result = knexInstance
+            .from<SupplierType>("supplierType")
+            .where("parentUId", uid)
+        return result
+    }
 }

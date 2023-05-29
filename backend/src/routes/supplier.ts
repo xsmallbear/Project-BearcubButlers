@@ -1,6 +1,5 @@
-import express, { Router, Request, Response } from "express"
+import express, { Router } from "express"
 import SupplierController from "../controllers/supplierController";
-import SupplierTypeController from "../controllers/supplierTypeController";
 
 const supplier: Router = express.Router();
 

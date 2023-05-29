@@ -1,7 +1,8 @@
 import { Request, Response } from "express"
 import SupplierTypeDao from "../db/supplierTypeDao"
-import { json } from "stream/consumers";
 import ObjectUtil from "../utils/objectUtil";
+import SupplierType from "../models/supplierType";
+import UUidUtil from "../utils/uuidUtil";
 
 export default class SupplierTypeController {
     /**
@@ -11,7 +12,7 @@ export default class SupplierTypeController {
      */
     public static async getAll(req: Request, res: Response) {
         const suppliers = await SupplierTypeDao.selectSupplierTypeLimit(10, 0)
-        res.json(suppliers)
+        res.send({ statu: false, datas: suppliers })
     }
 
     /**
@@ -22,7 +23,7 @@ export default class SupplierTypeController {
     public static async getSingleByUid(req: Request, res: Response) {
         const supplierTypeUid = req.params.supplierTypeUid;
         const supplier = await SupplierTypeDao.selectSupplierTypeByUid(supplierTypeUid)
-        res.json(supplier)
+        res.send({ statu: true, data: supplier })
     }
 
     /**
@@ -33,7 +34,7 @@ export default class SupplierTypeController {
     public static async getSingleByName(req: Request, res: Response) {
         const supplierName = req.params.supplierName;
         const supplier = await SupplierTypeDao.selectSupplierTypeByName(supplierName)
-        res.json(supplier)
+        res.send({ statu: true, data: supplier })
     }
 
     /**
@@ -45,10 +46,50 @@ export default class SupplierTypeController {
         const name = req.body.name
         const parentUId = req.body.parentUId
 
-        //检测数据库中是否有重复名称的值
-        const nameCheck = await SupplierTypeDao.selectSupplierTypeByName(name)
-        if (!ObjectUtil.checkObjectIsNull(nameCheck)) {
-            res.send({ statu: false, message: "名称重复" })
+        //检测这个uid在数据库中是否存在
+        const uidCheck = await SupplierTypeDao.selectSupplierTypeByUid(parentUId)
+        if (ObjectUtil.checkObjectIsNull(uidCheck)) {
+            res.send({ statu: false, message: "此UID的父类不存在" })
+            return
+        }
+
+        //TODO: 需要处理同名的问题
+        //检测在当前父类下是否有同名的存在
+        const subTypes = (await SupplierTypeDao.selectUidSubTypeByUid(parentUId))
+        for (let i = 0; i < subTypes.length; i++) {
+            if (subTypes[i].name === name) {
+                res.send({ statu: false, message: "名称重复" })
+                return
+            }
+        }
+
+        //添加新的类
+        const newSupplierType: SupplierType = new SupplierType(
+            UUidUtil.generateUUID(),
+            name,
+            parentUId,
+            new Date(),
+            new Date()
+        )
+        console.log(newSupplierType)
+        await SupplierTypeDao.inserSupplierType(newSupplierType)
+        res.send({ statu: true })
+
+    }
+
+    /**
+     * 修改供应商分类
+     * @param req 
+     * @param res 
+     */
+    public static async update(req: Request, res: Response) {
+        const supplierTypeUid = req.params.supplierTypeUid
+        const name = req.body.name
+        const parentUId = req.body.parentUId
+
+        const supplierTypeCheck = await SupplierTypeDao.selectSupplierTypeByUid(supplierTypeUid)
+        if (ObjectUtil.checkObjectIsNull(supplierTypeCheck)) {
+            res.send({ statu: false, message: "数据不存在" })
             return
         }
 
@@ -58,14 +99,35 @@ export default class SupplierTypeController {
             res.send({ statu: false, message: "此UID的父类不存在" })
             return
         }
+
+        //TODO: 需要处理同名的问题
+        //检测在当前父类下是否有同名的存在
+        const subTypes = (await SupplierTypeDao.selectUidSubTypeByUid(parentUId))
+        for (let i = 0; i < subTypes.length; i++) {
+            if (subTypes[i].name === name) {
+                res.send({ statu: false, message: "名称重复" })
+                return
+            }
+        }
+
+        const supplierType = (supplierTypeCheck as SupplierType[])[0];
+        supplierType.name = name;
+        supplierType.parentUid = parentUId
+        supplierType.updateTime = new Date()
+
+        await SupplierTypeDao.updateSupllierType(supplierType)
+        res.send({ statu: true })
     }
 
-    public static async update(req: Request, res: Response) {
-
-    }
-
+    /**
+     * 删除一个供应商类型
+     * @param req 
+     * @param res 
+     */
     public static async delete(req: Request, res: Response) {
-
+        //TODO
+        //需要先判断有没有商品用这个外键
+        //判断自己有没有子类
     }
 
 }

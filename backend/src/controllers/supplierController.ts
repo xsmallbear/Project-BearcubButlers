@@ -4,7 +4,7 @@ import SupplierDao from "../db/supplierDao"
 export default class SupplierController {
     public static async getAll(req: Request, res: Response) {
         const suppliers = await SupplierDao.selectSupplierLimit(10, 0)
-        res.json(suppliers)
+        res.send({ statu: false, datas: suppliers })
     }
 
     public static async getSingle(req: Request, res: Response) {
