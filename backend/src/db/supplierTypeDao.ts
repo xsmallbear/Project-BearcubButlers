@@ -4,7 +4,7 @@ import knexInstance from "../utils/knexfile"
 
 export default class SupplierTypeDao {
     /**
-     * 分页查询供应商
+     * 分页查询供应商分类
      * @param limit 
      * @param offset 
      * @returns 

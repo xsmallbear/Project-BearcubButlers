@@ -34,7 +34,7 @@ export default class SystemUserController {
         } else {
             //登入成功
             //jwt
-            const token = JwtUtil.sign({ userName: userName }, { expiresIn: "30s" })
+            const token = JwtUtil.sign({ userName: userName }, { expiresIn: "1h" })
             res.send({ statu: true, token: token })
         }
     }
