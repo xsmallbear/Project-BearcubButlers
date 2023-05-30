@@ -188,6 +188,7 @@
 | 登入名   | name         | TEXT     |
 | 密码哈希 | passwordHash | TEXT     |
 | 密码盐   | passwordSalt | TEXT     |
+| 权限Uid  | roleUid      | TEXT     |
 | 姓名     | realName     | TEXT     |
 | 电话     | phone        | TEXT     |
 | 邮箱     | email        | TEXT     |

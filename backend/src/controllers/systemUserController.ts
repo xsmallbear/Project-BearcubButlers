@@ -66,6 +66,7 @@ export default class SystemUserController {
         //密码加盐
         const { salt, hashPassword } = PasswordUtil.encryptPassword(password as string);
 
+        //TODO:需要处理默认用户的部分
         const newSystemUser = new SystemUser(
             UUidUtil.generateUUID(),
             id,
@@ -73,6 +74,7 @@ export default class SystemUserController {
             hashPassword,
             salt,
             realName,
+            "2B68EB25921A4A6FBED9DF2C2D37D1A4",
             phone,
             email,
             new Date(),
