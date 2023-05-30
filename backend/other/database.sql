@@ -1,12 +1,4 @@
 BEGIN TRANSACTION;
-DROP TABLE IF EXISTS "supplierType";
-CREATE TABLE IF NOT EXISTS "supplierType" (
-	"uid"	TEXT,
-	"name"	TEXT NOT NULL,
-	"parentId"	TEXT,
-	"createTime"	DATETIME NOT NULL,
-	PRIMARY KEY("uid")
-);
 DROP TABLE IF EXISTS "customerType";
 CREATE TABLE IF NOT EXISTS "customerType" (
 	"uid"	TEXT,
@@ -31,40 +23,12 @@ CREATE TABLE IF NOT EXISTS "productTag" (
 	"createTime"	DATETIME NOT NULL,
 	PRIMARY KEY("uid")
 );
-DROP TABLE IF EXISTS "productAndProductTag";
-CREATE TABLE IF NOT EXISTS "productAndProductTag" (
-	"uid"	,
-	"productUid"	TEXT NOT NULL,
-	"productTagUid"	TEXT NOT NULL,
-	"createTime"	DATETIME NOT NULL,
-	PRIMARY KEY("uid"),
-	FOREIGN KEY("productTagUid") REFERENCES "productTag"("uid")
-);
 DROP TABLE IF EXISTS "brand";
 CREATE TABLE IF NOT EXISTS "brand" (
 	"uuid"	TEXT NOT NULL,
 	"name"	TEXT NOT NULL,
 	"createTime"	DATETIME NOT NULL,
 	PRIMARY KEY("uuid")
-);
-DROP TABLE IF EXISTS "supplier";
-CREATE TABLE IF NOT EXISTS "supplier" (
-	"uid"	TEXT,
-	"id"	TEXT NOT NULL,
-	"typeUid"	TEXT NOT NULL,
-	"name"	TEXT NOT NULL,
-	"shortName"	TEXT,
-	"pinyinCode"	TEXT,
-	"contact"	TEXT,
-	"phone"	TEXT CHECK("phone" LIKE '1[3456789][0-9]{9}'),
-	"email"	TEXT,
-	"address"	TEXT,
-	"tin"	TEXT,
-	"remark"	TEXT,
-	"createTime"	DATETIME NOT NULL,
-	"updateTime"	DATETIME NOT NULL,
-	PRIMARY KEY("uid"),
-	FOREIGN KEY("typeUid") REFERENCES "supplierType"("uid")
 );
 DROP TABLE IF EXISTS "storeHouse";
 CREATE TABLE IF NOT EXISTS "storeHouse" (
@@ -78,24 +42,6 @@ CREATE TABLE IF NOT EXISTS "storeHouse" (
 	"phone"	TEXT CHECK("phone" LIKE '1[3456789][0-9]{9}'),
 	"createTime"	DATETIME NOT NULL,
 	"updateTime"	DATETIME NOT NULL,
-	PRIMARY KEY("uid")
-);
-DROP TABLE IF EXISTS "customer";
-CREATE TABLE IF NOT EXISTS "customer" (
-	"uid"	TEXT NOT NULL,
-	"id"	TEXT NOT NULL,
-	"typeUid"	TEXT NOT NULL,
-	"name"	TEXT NOT NULL,
-	"shortName"	TEXT,
-	"pinyinCode"	TEXT,
-	"contact"	TEXT,
-	"phone"	TEXT CHECK("phone" LIKE '1[3456789][0-9]{9}'),
-	"email"	TEXT,
-	"address"	TEXT,
-	"tin"	TEXT,
-	"remark"	TEXT,
-	"createTime"	DATATIME NOT NULL,
-	"updateTime"	DATATIME NOT NULL,
 	PRIMARY KEY("uid")
 );
 DROP TABLE IF EXISTS "systemUser";
@@ -141,8 +87,8 @@ CREATE TABLE IF NOT EXISTS "employee" (
 	"position"	TEXT,
 	"professionalTitle"	TEXT,
 	"createTime"	DATETIME NOT NULL,
-	PRIMARY KEY("uid"),
-	FOREIGN KEY("departmentUid") REFERENCES "department"("uid")
+	FOREIGN KEY("departmentUid") REFERENCES "department"("uid"),
+	PRIMARY KEY("uid")
 );
 DROP TABLE IF EXISTS "employeeAndSystemUser";
 CREATE TABLE IF NOT EXISTS "employeeAndSystemUser" (
@@ -150,8 +96,8 @@ CREATE TABLE IF NOT EXISTS "employeeAndSystemUser" (
 	"employeeUid"	TEXT NOT NULL,
 	"systemUserUid"	TEXT NOT NULL,
 	"createTime"	DATETIME NOT NULL,
-	PRIMARY KEY("uid"),
-	FOREIGN KEY("employeeUid") REFERENCES "employee"("uid")
+	FOREIGN KEY("employeeUid") REFERENCES "employee"("uid"),
+	PRIMARY KEY("uid")
 );
 DROP TABLE IF EXISTS "product";
 CREATE TABLE IF NOT EXISTS "product" (
@@ -170,9 +116,9 @@ CREATE TABLE IF NOT EXISTS "product" (
 	"remark"	TEXT,
 	"createTime"	DATETIME NOT NULL,
 	"updateTime"	DATETIME NOT NULL,
-	PRIMARY KEY("uid"),
 	FOREIGN KEY("brandUid") REFERENCES "brand"("uuid"),
-	FOREIGN KEY("productTypeUid") REFERENCES "productType"("uid")
+	FOREIGN KEY("productTypeUid") REFERENCES "productType"("uid"),
+	PRIMARY KEY("uid")
 );
 DROP TABLE IF EXISTS "purchaseOrder";
 CREATE TABLE IF NOT EXISTS "purchaseOrder" (
@@ -182,12 +128,83 @@ CREATE TABLE IF NOT EXISTS "purchaseOrder" (
 	"employeeUid"	TEXT NOT NULL,
 	"remark"	TEXT,
 	"createTime"	DATETIME NOT NULL,
-	PRIMARY KEY("uid"),
 	FOREIGN KEY("supplierUid") REFERENCES "supplier"("uid"),
-	FOREIGN KEY("employeeUid") REFERENCES "employee"("uid")
+	FOREIGN KEY("employeeUid") REFERENCES "employee"("uid"),
+	PRIMARY KEY("uid")
 );
-DROP TABLE IF EXISTS "productAndPurshaseOrder";
-CREATE TABLE IF NOT EXISTS "productAndPurshaseOrder" (
+DROP TABLE IF EXISTS "customer";
+CREATE TABLE IF NOT EXISTS "customer" (
+	"uid"	TEXT NOT NULL,
+	"id"	TEXT NOT NULL,
+	"typeUid"	TEXT NOT NULL,
+	"name"	TEXT NOT NULL,
+	"shortName"	TEXT,
+	"pinyinCode"	TEXT,
+	"contact"	TEXT,
+	"phone"	TEXT CHECK("phone" LIKE '1[3456789][0-9]{9}'),
+	"email"	TEXT,
+	"address"	TEXT,
+	"tin"	TEXT,
+	"remark"	TEXT,
+	"createTime"	DATETIME NOT NULL,
+	"updateTime"	DATETIME NOT NULL,
+	PRIMARY KEY("uid")
+);
+DROP TABLE IF EXISTS "productAndProductTag";
+CREATE TABLE IF NOT EXISTS "productAndProductTag" (
+	"uid"	TEXT,
+	"productUid"	TEXT NOT NULL,
+	"productTagUid"	TEXT NOT NULL,
+	"createTime"	DATETIME NOT NULL,
+	FOREIGN KEY("productTagUid") REFERENCES "productTag"("uid"),
+	PRIMARY KEY("uid")
+);
+DROP TABLE IF EXISTS "supplierType";
+CREATE TABLE IF NOT EXISTS "supplierType" (
+	"uid"	TEXT,
+	"name"	TEXT NOT NULL,
+	"parentUid"	TEXT,
+	"createTime"	DATETIME NOT NULL,
+	"updateTime"	DATETIME NOT NULL,
+	PRIMARY KEY("uid")
+);
+DROP TABLE IF EXISTS "supplier";
+CREATE TABLE IF NOT EXISTS "supplier" (
+	"uid"	TEXT,
+	"id"	TEXT NOT NULL,
+	"typeUid"	TEXT NOT NULL,
+	"name"	TEXT NOT NULL,
+	"shortName"	TEXT,
+	"pinyinCode"	TEXT,
+	"contact"	TEXT,
+	"phone"	TEXT,
+	"email"	TEXT,
+	"address"	TEXT,
+	"tin"	TEXT,
+	"remark"	TEXT,
+	"createTime"	DATETIME NOT NULL,
+	"updateTime"	DATETIME NOT NULL,
+	FOREIGN KEY("typeUid") REFERENCES "supplierType"("uid"),
+	PRIMARY KEY("uid")
+);
+DROP TABLE IF EXISTS "permissions";
+CREATE TABLE IF NOT EXISTS "permissions" (
+	"uid"	TEXT NOT NULL,
+	"name"	TEXT NOT NULL,
+	"createTime"	DATETIME NOT NULL,
+	"updateTime"	DATETIME NOT NULL,
+	PRIMARY KEY("uid")
+);
+DROP TABLE IF EXISTS "role";
+CREATE TABLE IF NOT EXISTS "role" (
+	"uid"	TEXT NOT NULL,
+	"name"	TEXT NOT NULL,
+	"createTime"	DATETIME NOT NULL,
+	"updateTime"	DATETIME NOT NULL,
+	PRIMARY KEY("uid")
+);
+DROP TABLE IF EXISTS "productAndPurchaseOrder";
+CREATE TABLE IF NOT EXISTS "productAndPurchaseOrder" (
 	"uid"	TEXT NOT NULL,
 	"id"	TEXT NOT NULL,
 	"productUid"	TEXT NOT NULL,
@@ -195,8 +212,16 @@ CREATE TABLE IF NOT EXISTS "productAndPurshaseOrder" (
 	"price"	NUMERIC NOT NULL,
 	"count"	NUMERIC,
 	"createTime"	DATETIME NOT NULL,
-	FOREIGN KEY("purchaseOrderUid") REFERENCES "purchaseOrder"("uid"),
-	FOREIGN KEY("productUid") REFERENCES "product"("uid")
+	FOREIGN KEY("productUid") REFERENCES "product"("uid"),
+	FOREIGN KEY("purchaseOrderUid") REFERENCES "purchaseOrder"("uid")
 );
-INSERT INTO "supplierType" VALUES ('10BBD387-51BD-2A1D-15F2-5F63B3C40D66','全部分类',NULL,'2023-05-26 12:01:12');
+DROP TABLE IF EXISTS "roleAndPermissions";
+CREATE TABLE IF NOT EXISTS "roleAndPermissions" (
+	"uid"	TEXT NOT NULL,
+	"roleUid"	TEXT NOT NULL,
+	"permissionsUid"	TEXT NOT NULL,
+	"createTime"	DATETIME NOT NULL,
+	"updateTime"	DATETIME NOT NULL,
+	PRIMARY KEY("uid")
+);
 COMMIT;
