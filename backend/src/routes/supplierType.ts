@@ -3,7 +3,7 @@ import {body, param} from 'express-validator'
 import SupplierTypeController from "../controllers/supplierTypeController";
 import validationError from "../middlewares/validationError";
 
-const suppliertype: Router = express.Router();
+const supplierType: Router = express.Router();
 
 const getSingleByUidParamVerify = [
     param("supplierTypeUid")
@@ -43,19 +43,19 @@ const updateParamVerify = [
 ]
 
 
-const deletParamVerify = [
+const deleteParamVerify = [
     param("supplierTypeUid")
         .isLength({ min: 32, max: 32 })
         .withMessage("uid格式错误"),
     validationError
 ]
 
-suppliertype.get("/", SupplierTypeController.getAll)
-suppliertype.get("/uid/:supplierTypeUid", getSingleByUidParamVerify, SupplierTypeController.getSingleByUid)
-suppliertype.get("/name/:supplierName", getSingleByNameParamVerify, SupplierTypeController.getSingleByName)
-suppliertype.post("/", createParamVerify, SupplierTypeController.create)
-suppliertype.put("/:supplierTypeUid", updateParamVerify, SupplierTypeController.update)
-suppliertype.delete("/:supplierTypeUid", deletParamVerify, SupplierTypeController.delete)
+supplierType.get("/", SupplierTypeController.getAll)
+supplierType.get("/uid/:supplierTypeUid", getSingleByUidParamVerify, SupplierTypeController.getSingleByUid)
+supplierType.get("/name/:supplierName", getSingleByNameParamVerify, SupplierTypeController.getSingleByName)
+supplierType.post("/", createParamVerify, SupplierTypeController.create)
+supplierType.put("/:supplierTypeUid", updateParamVerify, SupplierTypeController.update)
+supplierType.delete("/:supplierTypeUid", deleteParamVerify, SupplierTypeController.delete)
 
 
-export default suppliertype 
+export default supplierType

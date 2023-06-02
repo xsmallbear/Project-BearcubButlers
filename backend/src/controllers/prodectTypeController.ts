@@ -1,4 +1,4 @@
-export default class ProdectTypeController {
+export default class ProductTypeController {
     static async getAll() {
 
     }

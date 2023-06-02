@@ -2,6 +2,7 @@ import Knex from "knex"
 
 const knexInstance = Knex({
     client: "sqlite3",
+    //TODO:更改成配置文件
     connection: {
         filename: "C:/Users/bigst/Desktop/Project-BearcubButlers HELP/database.db"
     },

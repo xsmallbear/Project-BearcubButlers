@@ -23,7 +23,7 @@ export default class RoleController {
 
         const nameCheck = await RoleDao.selectRoleFromName(name)
         if (!ObjectUtil.checkObjectIsNull(nameCheck)) {
-            res.send({ statu: false, message: "name重复" })
+            res.send({ state: false, message: "name重复" })
             return
         }
 
@@ -33,8 +33,8 @@ export default class RoleController {
             new Date(),
             new Date()
         )
-        await RoleDao.inserRole(newRole)
-        res.send({ statu: true })
+        await RoleDao.insertRole(newRole)
+        res.send({ state: true })
     }
 
     static async update() {

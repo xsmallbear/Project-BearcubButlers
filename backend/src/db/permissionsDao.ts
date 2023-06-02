@@ -3,12 +3,12 @@ import Permissions from "../models/permissions";
 import RoleAndPermissions from "../models/roleAndPermissons";
 import Role from "../models/role";
 
-export default class PermissopnsDao {
+export default class PermissionsDao {
     /**
      * 查询指定用户的权限
      * @param uid
      */
-    static async selectPermissonsNameFromSystemUserUid(uid: string) {
+    static async selectPermissionsNameFromSystemUserUid(uid: string) {
         /**
          *   SELECT permissions.name
                 FROM(
@@ -49,9 +49,8 @@ export default class PermissopnsDao {
      * 查询所有的权限
      * @param uid
      */
-    static async selectAllPermissons(uid: string) {
-        const result = knexInstance
+    static async selectAllPermissions(uid: string) {
+        return knexInstance
             .from<Permissions>("permissions")
-        return result
     }
 }

@@ -11,7 +11,7 @@ const verify: Router = express.Router()
  * @param res 
  * @param next 
  */
-const registerParemVerify = [
+const registerParamVerify = [
     body("id")
         .notEmpty()
         .withMessage("id不能为空"),
@@ -41,7 +41,7 @@ const registerParemVerify = [
  * @param res 
  * @param next 
  */
-const loginParemVerify = [
+const loginParamVerify = [
     body("userName")
         .matches(/^[a-zA-Z][a-zA-Z-0-9]*$/)
         .withMessage("userName格式错误")
@@ -58,7 +58,7 @@ const loginParemVerify = [
  * @param res 
  * @param next 
  */
-const updatePasswordParemVerify = [
+const updatePasswordParamVerify = [
     body("userName")
         .matches(/^[a-zA-Z][a-zA-Z-0-9]*$/)
         .withMessage("userName格式错误")
@@ -72,8 +72,8 @@ const updatePasswordParemVerify = [
 ]
 
 
-verify.post("/register", registerParemVerify, SystemUserController.register)
-verify.post("/login", loginParemVerify, SystemUserController.login)
-verify.post("/updatePwd", updatePasswordParemVerify, SystemUserController.updatePassword)
+verify.post("/register", registerParamVerify, SystemUserController.register)
+verify.post("/login", loginParamVerify, SystemUserController.login)
+verify.post("/updatePwd", updatePasswordParamVerify, SystemUserController.updatePassword)
 
 export default verify

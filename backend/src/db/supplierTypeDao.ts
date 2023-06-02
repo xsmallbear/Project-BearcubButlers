@@ -10,11 +10,9 @@ export default class SupplierTypeDao {
      * @returns 
      */
     static async selectSupplierTypeLimit(limit: number, offset: number): Promise<{} | SystemUser> {
-        const result = knexInstance.
-            from<SupplierType>("supplierType")
+        return knexInstance.from<SupplierType>("supplierType")
             .limit(limit)
             .offset(offset)
-        return result
     }
 
     /**
@@ -23,10 +21,9 @@ export default class SupplierTypeDao {
      * @returns 
      */
     static async selectSupplierTypeByUid(uid: string): Promise<{} | SystemUser> {
-        const result = knexInstance
+        return knexInstance
             .from<SupplierType>("supplierType")
             .where("uid", uid)
-        return result
     }
 
     /**
@@ -35,10 +32,9 @@ export default class SupplierTypeDao {
      * @returns 
      */
     static async selectSupplierTypeByName(name: string): Promise<{} | SystemUser> {
-        const result = knexInstance
+        return knexInstance
             .from<SupplierType>("supplierType")
             .where("name", name)
-        return result
     }
 
     /**
@@ -55,7 +51,7 @@ export default class SupplierTypeDao {
      * 修改供应商类型
      * @param supplierType 
      */
-    static async updateSupllierType(supplierType: SupplierType) {
+    static async updateSupplierType(supplierType: SupplierType) {
         await knexInstance
             .from<SupplierType>("supplierType")
             .where("uid", supplierType.uid)
@@ -67,9 +63,8 @@ export default class SupplierTypeDao {
      * @param uid 
      */
     static async selectUidSubTypeByUid(uid: string) {
-        const result = knexInstance
+        return knexInstance
             .from<SupplierType>("supplierType")
             .where("parentUId", uid)
-        return result
     }
 }

@@ -4,10 +4,9 @@ import knexInstance from "../libs/knex"
 export default class SystemUserDao {
 
     static async selectSystemUserByUid(uid: string): Promise<{} | SystemUser> {
-        const result = await knexInstance
+        return knexInstance
             .from<SystemUser>("systemUser")
-            .where("uid", uid)
-        return result
+            .where("uid", uid);
     }
 
     /**
@@ -16,10 +15,9 @@ export default class SystemUserDao {
      * @returns 
      */
     static async selectSystemUserByUserName(userName: string): Promise<{} | SystemUser> {
-        const result = await knexInstance
+        return knexInstance
             .from<SystemUser>("systemUser")
-            .where("name", userName)
-        return result
+            .where("name", userName);
     }
 
     /**
@@ -28,10 +26,9 @@ export default class SystemUserDao {
      * @returns 
      */
     static async selectSystemUserById(id: string): Promise<{} | SystemUser> {
-        const result = await knexInstance
+        return knexInstance
             .from<SystemUser>("systemUser")
-            .where("id", id)
-        return result
+            .where("id", id);
     }
 
     /**
@@ -46,10 +43,11 @@ export default class SystemUserDao {
 
     /**
      * 根据用户名修改密码
-     * @param userName 
-     * @param newPassword 
+     * @param userName
+     * @param passwordHash
+     * @param passwordSalt
      */
-    static async updatePassowrdByUserName(userName: string, passwordHash: string, passwordSalt: string) {
+    static async updatePasswordByUserName(userName: string, passwordHash: string, passwordSalt: string) {
         await knexInstance("systemUser")
             .where("name", userName)
             .update({ passwordHash: passwordHash, passwordSalt: passwordSalt })

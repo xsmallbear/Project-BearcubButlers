@@ -21,12 +21,12 @@ async function loginVerifyIns(req: Request, res: Response, next: NextFunction) {
 
     const authorization = req.header('Authorization')
     if (!authorization) {
-        res.send({ statu: false, message: "身份验证失败" })
+        res.send({ state: false, message: "身份验证失败" })
         return
     }
     const result = JwtUtil.verify(authorization as string)
     if (!result || result === "") {
-        res.send({ statu: false, message: "身份验证失败" })
+        res.send({ state: false, message: "身份验证失败" })
         return
     }
 
@@ -37,13 +37,13 @@ async function loginVerifyIns(req: Request, res: Response, next: NextFunction) {
         userCache = cache.get(result.uid) as UserCache
     }
 
-    for (let i = 0; i < userCache.permissopns.length; i++) {
-        if (substr.startsWith(userCache.permissopns[i])) {
+    for (let i = 0; i < userCache.permissions.length; i++) {
+        if (substr.startsWith(userCache.permissions[i])) {
             next()
             return
         }
     }
-    res.send({ statu: false, message: "您没有权限" })
+    res.send({ state: false, message: "您没有权限" })
     //验证失败
 }
 

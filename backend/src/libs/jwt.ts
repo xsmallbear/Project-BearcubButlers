@@ -9,8 +9,7 @@ export default class JwtUtil {
 
     public static verify(token: string): any | string {
         try {
-            const decode = jwt.verify(token, this.secretKey);
-            return decode
+            return jwt.verify(token, this.secretKey)
         } catch (ok) {
             //验证错误
             return ""

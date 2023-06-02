@@ -1,12 +1,12 @@
-import PermissopnsDao from "../db/permissopnsDao"
+import PermissionsDao from "../db/permissionsDao"
 import cache from "../libs/cache"
 import UserCache from "../types/userCache"
 
 export default class UserCacheUtil {
     public static async updateUserCache(uid: string) {
-        const permissopns = await PermissopnsDao.selectPermissonsNameFromSystemUserUid(uid)
+        const permissions = await PermissionsDao.selectPermissionsNameFromSystemUserUid(uid)
         const userCache: UserCache = {
-            permissopns: permissopns
+            permissions: permissions
         }
         cache.set(uid, userCache)
     }

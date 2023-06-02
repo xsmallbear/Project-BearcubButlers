@@ -11,7 +11,7 @@ export default class Employee {
     bankAccountNumber: String
     hireDate: Date
     departmentUid: String
-    deucation: String
+    education: String
     position: String
     professionalTitle: String
     createTime: Date
@@ -28,7 +28,7 @@ export default class Employee {
         this.bankAccountNumber = bankAccountNumber
         this.hireDate = hireDate
         this.departmentUid = departmentUid
-        this.deucation = deucation
+        this.education = deucation
         this.position = position
         this.professionalTitle = professionalTitle
         this.createTime = createTime

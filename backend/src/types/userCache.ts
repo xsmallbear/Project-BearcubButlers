@@ -1,3 +1,3 @@
 export default interface UserCache {
-    permissopns: string[]
+    permissions: string[]
 }

@@ -31,8 +31,8 @@ export default class SystemUserController {
         const passwordHash = user.passwordHash as string
         const loginResult = PasswordUtil.verifyPassword(password, salt, passwordHash);
 
-        if (loginResult == false) {
-            res.send({ statu: false, message: "密码错误" })
+        if (!loginResult) {
+            res.send({ state: false, message: "密码错误" })
         } else {
             //登入成功
             //该用户的权限
@@ -40,7 +40,7 @@ export default class SystemUserController {
             //生成jwt
             const token = JwtUtil.sign({ uid: uid }, { expiresIn: "1h" })
 
-            res.send({ statu: true, token: token })
+            res.send({ state: true, token: token })
         }
     }
 
@@ -59,12 +59,12 @@ export default class SystemUserController {
 
         //检查用户名是否重复
         if (!ObjectUtil.checkObjectIsNull(await SystemUserDao.selectSystemUserByUserName(userName))) {
-            res.send({ statu: false, message: "用户名已存在" })
+            res.send({ state: false, message: "用户名已存在" })
             return
         }
         //检查用户id是否重复
         if (!ObjectUtil.checkObjectIsNull(await SystemUserDao.selectSystemUserById(id))) {
-            res.send({ statu: false, message: "id已存在" })
+            res.send({ state: false, message: "id已存在" })
             return
         }
 
@@ -87,7 +87,7 @@ export default class SystemUserController {
         );
 
         await SystemUserDao.insertSystemUser(newSystemUser)
-        res.send({ statu: false, message: "注册成功" })
+        res.send({ state: false, message: "注册成功" })
     }
 
     /**
@@ -101,14 +101,14 @@ export default class SystemUserController {
         const newPassword = req.body.newPassword
 
         //参数非空检查
-        if (ParamUtil.validateParams({ userName, oldPassword, newPassword }) === false) {
-            res.send({ statu: false, message: "参数错误" })
+        if (!ParamUtil.validateParams({userName, oldPassword, newPassword})) {
+            res.send({ state: false, message: "参数错误" })
             return
         }
         //检查是否有这个用户
         const needCheckUser = await SystemUserDao.selectSystemUserByUserName(userName);
         if (ObjectUtil.checkObjectIsNull(needCheckUser)) {
-            res.send({ statu: false, message: "用户名不存在" })
+            res.send({ state: false, message: "用户名不存在" })
             return
         }
         //验证原有密码
@@ -116,14 +116,14 @@ export default class SystemUserController {
         const oldSalt = user.passwordSalt as string
         const passwordHash = user.passwordHash as string
         const isOldPwdOK = PasswordUtil.verifyPassword(oldPassword, oldSalt, passwordHash);
-        if (isOldPwdOK == false) {
-            res.send({ statu: false, message: "原有密码错误" })
+        if (!isOldPwdOK) {
+            res.send({ state: false, message: "原有密码错误" })
             return
         }
 
         //修改密码
         const { salt, hashPassword } = PasswordUtil.encryptPassword(newPassword);
-        SystemUserDao.updatePassowrdByUserName(user.name as string, hashPassword, salt)
-        res.send({ statu: false, message: "密码修改成功" })
+        await SystemUserDao.updatePasswordByUserName(user.name as string, hashPassword, salt)
+        res.send({ state: false, message: "密码修改成功" })
     }
 }

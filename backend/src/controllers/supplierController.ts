@@ -13,7 +13,7 @@ export default class SupplierController {
      */
     public static async getAll(req: Request, res: Response) {
         const suppliers = await SupplierDao.selectSupplierLimit(10, 0)
-        res.send({ statu: false, datas: suppliers })
+        res.send({ state: false, datas: suppliers })
     }
 
     /**
@@ -24,7 +24,7 @@ export default class SupplierController {
     public static async getSingle(req: Request, res: Response) {
         const supplierUid = req.params.supplierUid
         const supplier = await SupplierDao.selectSupplierByUid(supplierUid);
-        res.send({ statu: false, data: supplier })
+        res.send({ state: false, data: supplier })
     }
 
     /**
@@ -47,12 +47,12 @@ export default class SupplierController {
 
         const idCheck = await SupplierDao.selectSupplierById(id)
         if (!ObjectUtil.checkObjectIsNull(idCheck)) {
-            res.send({ statu: false, message: "id重复" })
+            res.send({ state: false, message: "id重复" })
             return
         }
         const typeUidCheck = await SupplierTypeDao.selectSupplierTypeByUid(typeUid)
         if (ObjectUtil.checkObjectIsNull(typeUidCheck)) {
-            res.send({ statu: false, message: "供应商分类不存在" })
+            res.send({ state: false, message: "供应商分类不存在" })
             return
         }
         const newSupplier: Supplier = new Supplier(
@@ -71,8 +71,8 @@ export default class SupplierController {
             new Date(),
             new Date()
         )
-        await SupplierDao.inserSupplier(newSupplier)
-        res.send({ statu: true })
+        await SupplierDao.insertSupplier(newSupplier)
+        res.send({ state: true })
     }
 
     public static async update(req: Request, res: Response) {
@@ -90,18 +90,18 @@ export default class SupplierController {
         const remark = req.body.remark
         const supplierCheck = await SupplierDao.selectSupplierByUid(supplierUid)
         if (ObjectUtil.checkObjectIsNull(supplierCheck)) {
-            res.send({ statu: false, message: "数据不存在" })
+            res.send({ state: false, message: "数据不存在" })
             return
         }
         const supplier = (supplierCheck as Supplier[])[0];
         const idCheck = await SupplierDao.selectSupplierById(id)
         if (!ObjectUtil.checkObjectIsNull(idCheck) && supplier.id !== id) {
-            res.send({ statu: false, message: "id重复" })
+            res.send({ state: false, message: "id重复" })
             return
         }
         const typeUidCheck = await SupplierTypeDao.selectSupplierTypeByUid(typeUid)
         if (ObjectUtil.checkObjectIsNull(typeUidCheck)) {
-            res.send({ statu: false, message: "供应商分类不存在" })
+            res.send({ state: false, message: "供应商分类不存在" })
             return
         }
         supplier.uid = supplierUid
@@ -116,8 +116,8 @@ export default class SupplierController {
         supplier.address = address
         supplier.tin = tin
         supplier.remark = remark
-        await SupplierDao.updateSupllier(supplier)
-        res.send({ statu: true })
+        await SupplierDao.updateSupplier(supplier)
+        res.send({ state: true })
     }
 
     public static async delete(req: Request, res: Response) {

@@ -1,12 +1,12 @@
 import express, {Router} from "express"
-import ProdectTypeController from "../controllers/prodectTypeController";
+import ProductTypeController from "../controllers/prodectTypeController";
 
-const prodectType: Router = express.Router();
+const productType: Router = express.Router();
 
-prodectType.get("/", ProdectTypeController.getAll)
-prodectType.get("/:customerTypeUid", ProdectTypeController.getSingle)
-prodectType.post("/", ProdectTypeController.create)
-prodectType.put("/:customerTypeUid", ProdectTypeController.update)
-prodectType.delete("/:customerTypeUid", ProdectTypeController.delete)
+productType.get("/", ProductTypeController.getAll)
+productType.get("/:customerTypeUid", ProductTypeController.getSingle)
+productType.post("/", ProductTypeController.create)
+productType.put("/:customerTypeUid", ProductTypeController.update)
+productType.delete("/:customerTypeUid", ProductTypeController.delete)
 
-export default prodectType 
+export default productType

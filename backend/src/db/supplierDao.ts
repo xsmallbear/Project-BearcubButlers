@@ -10,11 +10,9 @@ export default class SupplierDao {
      * @returns 
      */
     static async selectSupplierLimit(limit: number, offset: number): Promise<{} | SystemUser> {
-        const result = knexInstance.
-            from<Supplier>("supplier")
+        return knexInstance.from<Supplier>("supplier")
             .limit(limit)
             .offset(offset)
-        return result
     }
 
     /**
@@ -22,10 +20,9 @@ export default class SupplierDao {
      * @param uid 
      */
     static async selectSupplierByUid(uid: string): Promise<{} | SystemUser> {
-        const result = knexInstance
+        return knexInstance
             .from<Supplier>("supplier")
             .where("uid", uid)
-        return result
     }
 
     /**
@@ -33,17 +30,16 @@ export default class SupplierDao {
      * @param id 
      */
     static async selectSupplierById(id: string): Promise<{} | SystemUser> {
-        const result = knexInstance
+        return knexInstance
             .from<Supplier>("supplier")
             .where("id", id)
-        return result
     }
 
     /**
      * 添加一个新的供应商
      * @param supplier 
      */
-    static async inserSupplier(supplier: Supplier) {
+    static async insertSupplier(supplier: Supplier) {
         await knexInstance
             .from<Supplier>("supplier")
             .insert(supplier)
@@ -53,7 +49,7 @@ export default class SupplierDao {
      * update供应商信息
      * @param supplier 
      */
-    static async updateSupllier(supplier: Supplier) {
+    static async updateSupplier(supplier: Supplier) {
         await knexInstance
             .from<Supplier>("supplier")
             .where("uid", supplier.uid)

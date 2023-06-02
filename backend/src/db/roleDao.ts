@@ -9,10 +9,9 @@ export default class RoleDao {
      * @returns
      */
     static async selectRoleFromName(name: string): Promise<{} | SystemUser> {
-        const result = knexInstance
+        return knexInstance
             .from<Role>("role")
             .where("name", name)
-        return result
     }
 
     /**
@@ -28,7 +27,7 @@ export default class RoleDao {
      * 添加
      * @param newRole
      */
-    static async inserRole(newRole: Role) {
+    static async insertRole(newRole: Role) {
         await knexInstance
             .from<Role>("role")
             .insert(newRole)

@@ -65,7 +65,6 @@ const emojiLoggerInstance = (req: Request, res: Response, next: NextFunction) =>
 }
 
 export default function emojiLogger(config?: EmojiLoggerConfig) {
-
     return emojiLoggerInstance;
 }
 

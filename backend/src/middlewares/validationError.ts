@@ -13,7 +13,7 @@ export default function validationError(req: Request, res: Response, next: NextF
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const messages = errors.array().map(error => error.msg)[0]
-        res.send({ statu: false, message: messages })
+        res.send({ state: false, message: messages })
         return;
     } else {
         next()
