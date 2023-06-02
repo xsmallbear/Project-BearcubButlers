@@ -1,11 +1,12 @@
-import e, { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import SystemUser from "../models/systemUser"
 import PasswordUtil from '../utils/passwordUtil';
 import ParamUtil from '../utils/paramUtil';
 import SystemUserDao from '../db/systemUserDao';
 import UUidUtil from '../utils/uuidUtil';
 import ObjectUtil from '../utils/objectUtil';
-import JwtUtil from '../utils/jwtUtil';
+import JwtUtil from '../libs/jwt';
+import UserCacheUtil from '../utils/userCacheUtil';
 
 export default class SystemUserController {
 
@@ -25,6 +26,7 @@ export default class SystemUserController {
             return
         }
         const user = (needCheckUser as SystemUser[])[0]
+        const uid = user.uid as string
         const salt = user.passwordSalt as string
         const passwordHash = user.passwordHash as string
         const loginResult = PasswordUtil.verifyPassword(password, salt, passwordHash);
@@ -33,8 +35,11 @@ export default class SystemUserController {
             res.send({ statu: false, message: "密码错误" })
         } else {
             //登入成功
-            //jwt
-            const token = JwtUtil.sign({ userName: userName }, { expiresIn: "1h" })
+            //该用户的权限
+            await UserCacheUtil.updateUserCache(uid)
+            //生成jwt
+            const token = JwtUtil.sign({ uid: uid }, { expiresIn: "1h" })
+
             res.send({ statu: true, token: token })
         }
     }

@@ -1,7 +1,8 @@
 import Supplier from "../models/supplier";
 import SystemUser from "../models/systemUser";
-import knexInstance from "../utils/knexfile"
+import knexInstance from "../libs/knex"
 import Role from "../models/role";
+import RoleAndPermissions from "../models/roleAndPermissons";
 
 export default class RoleDao {
     /**
@@ -14,6 +15,15 @@ export default class RoleDao {
             .from<Role>("role")
             .where("name", name)
         return result
+    }
+
+    /**
+     * 
+     * @param uid 根据uid查询角色
+     * @returns 
+     */
+    static async selectRoleFromUid(uid: string): Promise<{} | SystemUser> {
+        return {}
     }
 
     /**

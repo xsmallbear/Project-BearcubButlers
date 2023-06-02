@@ -3,7 +3,6 @@ import express, { Express, Router } from 'express';
 import cors from "cors"
 import emojiLogger from './src/middlewares/emojiLogger';
 import loginVerify from './src/middlewares/loginVerify';
-import permissions from './src/middlewares/permissions';
 
 import brand from './src/routes/brand';
 import customer from './src/routes/customer';
@@ -31,7 +30,6 @@ app.use(cors())
 const rootRouter: Router = express.Router()
 
 rootRouter.use(loginVerify(["/verify"]))
-rootRouter.use(permissions(["/verify"]))
 
 rootRouter.use("/brand", brand)
 rootRouter.use("/customer", customer)

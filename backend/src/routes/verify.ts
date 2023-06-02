@@ -1,5 +1,5 @@
-import express, { Router, Request, Response, NextFunction } from "express"
-import { body, validationResult } from 'express-validator'
+import express, { Router} from "express"
+import { body } from 'express-validator'
 import SystemUserController from "../controllers/systemUserController"
 import validationError from "../middlewares/validationError"
 

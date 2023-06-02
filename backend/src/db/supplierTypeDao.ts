@@ -1,6 +1,6 @@
 import SupplierType from "../models/supplierType";
 import SystemUser from "../models/systemUser";
-import knexInstance from "../utils/knexfile"
+import knexInstance from "../libs/knex"
 
 export default class SupplierTypeDao {
     /**
