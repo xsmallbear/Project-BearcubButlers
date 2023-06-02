@@ -15,7 +15,7 @@ import role from './src/routes/role';
 import storeHouse from './src/routes/storeHouse';
 import supplier from './src/routes/supplier';
 import supplierType from './src/routes/supplierType';
-import verify from './src/routes/verify';
+import systemUser from './src/routes/systemUser';
 import UUidUtil from './src/utils/uuidUtil';
 
 
@@ -29,7 +29,7 @@ app.use(cors())
 
 const rootRouter: Router = express.Router()
 
-rootRouter.use(loginVerify(["/verify"]))
+rootRouter.use(loginVerify(["/systemUser"]))
 
 rootRouter.use("/brand", brand)
 rootRouter.use("/customer", customer)
@@ -42,7 +42,7 @@ rootRouter.use("/role", role)
 rootRouter.use("/storeHouse", storeHouse)
 rootRouter.use("/supplier", supplier)
 rootRouter.use("/supplierType", supplierType)
-rootRouter.use("/verify", verify)
+rootRouter.use("/systemUser", systemUser)
 
 app.use("/api", rootRouter)
 
