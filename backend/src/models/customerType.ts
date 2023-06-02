@@ -3,10 +3,12 @@ export default class CustomerType {
     name: String
     parentId: String
     createTime: Date
-    constructor(uid: String, name: String, parentId: String, createTime: Date) {
+    updateTime: Date
+    constructor(uid: String, name: String, parentId: String, createTime: Date, updateTime:Date) {
         this.uid = uid
         this.name = name
         this.parentId = parentId
         this.createTime = createTime
+        this.updateTime = updateTime
     }
 }
