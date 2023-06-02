@@ -28,9 +28,9 @@ const createParamVerify = [
     body("name")
         .isLength({min: 1, max: 10})
         .withMessage("name长度不对"),
-    body("parentUId")
+    body("parentUid")
         .isLength({min: 32, max: 32})
-        .withMessage("parentUId长度不对"),
+        .withMessage("parentUid长度不对"),
     validationError
 ]
 

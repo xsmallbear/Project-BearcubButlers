@@ -5,11 +5,11 @@ import knexInstance from "../libs/knex"
 export default class SupplierTypeDao {
     /**
      * 分页查询供应商分类
-     * @param limit 
-     * @param offset 
-     * @returns 
+     * @param limit
+     * @param offset
+     * @returns
      */
-    static async selectSupplierTypeLimit(limit: number, offset: number) {
+    static async selectSupplierTypesLimit(limit: number, offset: number) {
         return knexInstance.from<SupplierType>("supplierType")
             .limit(limit)
             .offset(offset)
@@ -17,10 +17,10 @@ export default class SupplierTypeDao {
 
     /**
      * 根据uid查询供应商分类
-     * @param uid 
-     * @returns 
+     * @param uid
+     * @returns
      */
-    static async selectSupplierTypeByUid(uid: string){
+    static async selectSupplierTypeByUid(uid: string) {
         return knexInstance
             .from<SupplierType>("supplierType")
             .where("uid", uid)
@@ -28,20 +28,30 @@ export default class SupplierTypeDao {
 
     /**
      * 根据名字查询供应商分类
-     * @param name 
-     * @returns 
+     * @param name
+     * @returns
      */
-    static async selectSupplierTypeByName(name: string){
+    static async selectSupplierTypeByName(name: string) {
         return knexInstance
             .from<SupplierType>("supplierType")
             .where("name", name)
     }
 
     /**
-     * 添加一个新的供应商类型
-     * @param supplierType 
+     * 根据parentUid查询供应商类型
+     * @param uid
      */
-    static async inserSupplierType(supplierType: SupplierType) {
+    static async selectSupplierTypesByParentUid(uid: string) {
+        return knexInstance
+            .from<SupplierType>("supplierType")
+            .where("parentUId", uid)
+    }
+
+    /**
+     * 添加一个新的供应商类型
+     * @param supplierType
+     */
+    static async insertSupplierType(supplierType: SupplierType) {
         await knexInstance
             .from<SupplierType>("supplierType")
             .insert(supplierType)
@@ -49,7 +59,7 @@ export default class SupplierTypeDao {
 
     /**
      * 修改供应商类型
-     * @param supplierType 
+     * @param supplierType
      */
     static async updateSupplierType(supplierType: SupplierType) {
         await knexInstance
@@ -58,13 +68,4 @@ export default class SupplierTypeDao {
             .update(supplierType)
     }
 
-    /**
-     * 查询当前uid的所有子类
-     * @param uid 
-     */
-    static async selectUidSubTypeByUid(uid: string) {
-        return knexInstance
-            .from<SupplierType>("supplierType")
-            .where("parentUId", uid)
-    }
 }

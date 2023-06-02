@@ -9,7 +9,7 @@ export default class SupplierDao {
      * @param offset 
      * @returns 
      */
-    static async selectSupplierLimit(limit: number, offset: number) {
+    static async selectSuppliersLimit(limit: number, offset: number) {
         return knexInstance.from<Supplier>("supplier")
             .limit(limit)
             .offset(offset)

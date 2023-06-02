@@ -13,7 +13,7 @@ export default class SupplierController {
      */
     public static async getAll(req: Request, res: Response) {
         const {limit = 10, offset = 0} = req.query;
-        const suppliers = await SupplierDao.selectSupplierLimit(Number(limit), Number(offset))
+        const suppliers = await SupplierDao.selectSuppliersLimit(Number(limit), Number(offset))
         res.send({state: false, datas: suppliers})
     }
 
@@ -34,17 +34,19 @@ export default class SupplierController {
      * @param res
      */
     public static async create(req: Request, res: Response) {
-        const id = req.body.id
-        const typeUid = req.body.typeUid
-        const name = req.body.name
-        const shortName = req.body.shortName
-        const pinyinCode = req.body.pinyinCode
-        const contact = req.body.contact
-        const phone = req.body.phone
-        const email = req.body.email
-        const address = req.body.address
-        const tin = req.body.tin
-        const remark = req.body.remark
+        const {
+            id,
+            typeUid,
+            name,
+            shortName,
+            pinyinCode,
+            contact,
+            phone,
+            email,
+            address,
+            tin,
+            remark
+        } = req.body
 
         const idCheck = await SupplierDao.selectSupplierById(id)
         if (!ObjectUtil.checkObjectIsNull(idCheck)) {
@@ -77,18 +79,21 @@ export default class SupplierController {
     }
 
     public static async update(req: Request, res: Response) {
-        const supplierUid = req.params.supplierUid
-        const id = req.body.id
-        const typeUid = req.body.typeUid
-        const name = req.body.name
-        const shortName = req.body.shortName
-        const pinyinCode = req.body.pinyinCode
-        const contact = req.body.contact
-        const phone = req.body.phone
-        const email = req.body.email
-        const address = req.body.address
-        const tin = req.body.tin
-        const remark = req.body.remark
+        const {supplierUid} = req.params
+        const {
+            id,
+            typeUid,
+            name,
+            shortName,
+            pinyinCode,
+            contact,
+            phone,
+            email,
+            address,
+            tin,
+            remark
+        } = req.body
+
         const supplierCheck = await SupplierDao.selectSupplierByUid(supplierUid)
         if (ObjectUtil.checkObjectIsNull(supplierCheck)) {
             res.send({state: false, message: "数据不存在"})

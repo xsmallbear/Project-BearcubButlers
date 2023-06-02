@@ -12,7 +12,7 @@ export default class SupplierTypeController {
      */
     public static async getAll(req: Request, res: Response) {
         const {limit = 10, offset = 0} = req.query;
-        const suppliers = await SupplierTypeDao.selectSupplierTypeLimit(Number(limit), Number(offset))
+        const suppliers = await SupplierTypeDao.selectSupplierTypesLimit(Number(limit), Number(offset))
         res.send({state: false, datas: suppliers})
     }
 
@@ -45,16 +45,16 @@ export default class SupplierTypeController {
      */
     public static async create(req: Request, res: Response) {
         const name = req.body.name
-        const parentUId = req.body.parentUId
+        const parentUid = req.body.parentUid
 
-        //检测这个uid在数据库中是否存在
-        const uidCheck = await SupplierTypeDao.selectSupplierTypeByUid(parentUId)
-        if (ObjectUtil.checkObjectIsNull(uidCheck)) {
+        //检测这个父类uid在数据库中是否存在
+        const parentUidCheck = await SupplierTypeDao.selectSupplierTypeByUid(parentUid)
+        if (ObjectUtil.checkObjectIsNull(parentUidCheck)) {
             res.send({state: false, message: "此UID的父类不存在"})
             return
         }
         //检测在当前父类下是否有同名的存在
-        const subTypes = (await SupplierTypeDao.selectUidSubTypeByUid(parentUId))
+        const subTypes = await SupplierTypeDao.selectSupplierTypesByParentUid(parentUid)
         for (let i = 0; i < subTypes.length; i++) {
             if (subTypes[i].name === name) {
                 res.send({state: false, message: "名称重复"})
@@ -66,12 +66,11 @@ export default class SupplierTypeController {
         const newSupplierType: SupplierType = new SupplierType(
             UUidUtil.generateUUID(),
             name,
-            parentUId,
+            parentUid,
             new Date(),
             new Date()
         )
-        console.log(newSupplierType)
-        await SupplierTypeDao.inserSupplierType(newSupplierType)
+        await SupplierTypeDao.insertSupplierType(newSupplierType)
         res.send({state: true})
 
     }
@@ -86,8 +85,8 @@ export default class SupplierTypeController {
         const name = req.body.name
         const parentUId = req.body.parentUId
 
-        const supplierTypeCheck = await SupplierTypeDao.selectSupplierTypeByUid(supplierTypeUid)
-        if (ObjectUtil.checkObjectIsNull(supplierTypeCheck)) {
+        const dataCheck = await SupplierTypeDao.selectSupplierTypeByUid(supplierTypeUid)
+        if (ObjectUtil.checkObjectIsNull(dataCheck)) {
             res.send({state: false, message: "数据不存在"})
             return
         }
@@ -101,7 +100,7 @@ export default class SupplierTypeController {
 
         //TODO: 需要处理同名的问题
         //检测在当前父类下是否有同名的存在
-        const subTypes = (await SupplierTypeDao.selectUidSubTypeByUid(parentUId))
+        const subTypes = (await SupplierTypeDao.selectSupplierTypesByParentUid(parentUId))
         for (let i = 0; i < subTypes.length; i++) {
             if (subTypes[i].name === name) {
                 res.send({state: false, message: "名称重复"})
@@ -109,7 +108,7 @@ export default class SupplierTypeController {
             }
         }
 
-        const supplierType = (supplierTypeCheck as SupplierType[])[0];
+        const supplierType = (dataCheck as SupplierType[])[0];
         supplierType.name = name;
         supplierType.parentUid = parentUId
         supplierType.updateTime = new Date()
