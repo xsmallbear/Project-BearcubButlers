@@ -3,7 +3,7 @@ import knexInstance from "../libs/knex"
 
 export default class SystemUserDao {
 
-    static async selectSystemUserByUid(uid: string): Promise<{} | SystemUser> {
+    static async selectSystemUserByUid(uid: string){
         return knexInstance
             .from<SystemUser>("systemUser")
             .where("uid", uid);
@@ -14,7 +14,7 @@ export default class SystemUserDao {
      * @param userName 
      * @returns 
      */
-    static async selectSystemUserByUserName(userName: string): Promise<{} | SystemUser> {
+    static async selectSystemUserByUserName(userName: string) {
         return knexInstance
             .from<SystemUser>("systemUser")
             .where("name", userName);
@@ -25,7 +25,7 @@ export default class SystemUserDao {
      * @param id 
      * @returns 
      */
-    static async selectSystemUserById(id: string): Promise<{} | SystemUser> {
+    static async selectSystemUserById(id: string) {
         return knexInstance
             .from<SystemUser>("systemUser")
             .where("id", id);

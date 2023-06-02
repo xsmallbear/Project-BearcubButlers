@@ -9,11 +9,10 @@ let filtersArray: string[] = []
 async function loginVerifyIns(req: Request, res: Response, next: NextFunction) {
     const firstSlashIndex = req.path.indexOf('/');
     const secondSlashIndex = req.path.indexOf('/', firstSlashIndex + 1);
-    const substr = req.path.substring(firstSlashIndex, secondSlashIndex === -1 ? undefined : secondSlashIndex);
-    console.log(substr)
+    const target = req.path.substring(firstSlashIndex, secondSlashIndex === -1 ? undefined : secondSlashIndex);
     //需要过滤的地址
     for (let i = 0; i < filtersArray.length; i++) {
-        if (substr.startsWith(filtersArray[i])) {
+        if (target.startsWith(filtersArray[i])) {
             next()
             return
         }
@@ -37,14 +36,15 @@ async function loginVerifyIns(req: Request, res: Response, next: NextFunction) {
         userCache = cache.get(result.uid) as UserCache
     }
 
+    console.log("权限列表:",userCache.permissions)
+    console.log("访问权限:",target)
     for (let i = 0; i < userCache.permissions.length; i++) {
-        if (substr.startsWith(userCache.permissions[i])) {
+        if (target.startsWith(userCache.permissions[i])) {
             next()
             return
         }
     }
     res.send({ state: false, message: "您没有权限" })
-    //验证失败
 }
 
 export default function loginVerify(filters?: string[]) {

@@ -9,7 +9,7 @@ export default class SupplierTypeDao {
      * @param offset 
      * @returns 
      */
-    static async selectSupplierTypeLimit(limit: number, offset: number): Promise<{} | SystemUser> {
+    static async selectSupplierTypeLimit(limit: number, offset: number) {
         return knexInstance.from<SupplierType>("supplierType")
             .limit(limit)
             .offset(offset)
@@ -20,7 +20,7 @@ export default class SupplierTypeDao {
      * @param uid 
      * @returns 
      */
-    static async selectSupplierTypeByUid(uid: string): Promise<{} | SystemUser> {
+    static async selectSupplierTypeByUid(uid: string){
         return knexInstance
             .from<SupplierType>("supplierType")
             .where("uid", uid)
@@ -31,7 +31,7 @@ export default class SupplierTypeDao {
      * @param name 
      * @returns 
      */
-    static async selectSupplierTypeByName(name: string): Promise<{} | SystemUser> {
+    static async selectSupplierTypeByName(name: string){
         return knexInstance
             .from<SupplierType>("supplierType")
             .where("name", name)

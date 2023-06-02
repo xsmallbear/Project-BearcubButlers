@@ -2,6 +2,7 @@ import knexInstance from "../libs/knex"
 import Permissions from "../models/permissions";
 import RoleAndPermissions from "../models/roleAndPermissons";
 import Role from "../models/role";
+import SystemUser from "../models/systemUser";
 
 export default class PermissionsDao {
     /**
@@ -49,7 +50,7 @@ export default class PermissionsDao {
      * 查询所有的权限
      * @param uid
      */
-    static async selectAllPermissions(uid: string) {
+    static async selectAllPermissions(uid: string){
         return knexInstance
             .from<Permissions>("permissions")
     }

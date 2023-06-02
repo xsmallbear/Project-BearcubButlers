@@ -8,29 +8,29 @@ import UUidUtil from "../utils/uuidUtil"
 export default class SupplierController {
     /**
      * 查询所有的供应商
-     * @param req 
-     * @param res 
+     * @param req
+     * @param res
      */
     public static async getAll(req: Request, res: Response) {
         const suppliers = await SupplierDao.selectSupplierLimit(10, 0)
-        res.send({ state: false, datas: suppliers })
+        res.send({state: false, datas: suppliers})
     }
 
     /**
      * 根据uid查询供应商
-     * @param req 
-     * @param res 
+     * @param req
+     * @param res
      */
     public static async getSingle(req: Request, res: Response) {
         const supplierUid = req.params.supplierUid
         const supplier = await SupplierDao.selectSupplierByUid(supplierUid);
-        res.send({ state: false, data: supplier })
+        res.send({state: false, data: supplier})
     }
 
     /**
      * 创建一个新的供应商
-     * @param req 
-     * @param res 
+     * @param req
+     * @param res
      */
     public static async create(req: Request, res: Response) {
         const id = req.body.id
@@ -47,12 +47,12 @@ export default class SupplierController {
 
         const idCheck = await SupplierDao.selectSupplierById(id)
         if (!ObjectUtil.checkObjectIsNull(idCheck)) {
-            res.send({ state: false, message: "id重复" })
+            res.send({state: false, message: "id重复"})
             return
         }
         const typeUidCheck = await SupplierTypeDao.selectSupplierTypeByUid(typeUid)
         if (ObjectUtil.checkObjectIsNull(typeUidCheck)) {
-            res.send({ state: false, message: "供应商分类不存在" })
+            res.send({state: false, message: "供应商分类不存在"})
             return
         }
         const newSupplier: Supplier = new Supplier(
@@ -72,7 +72,7 @@ export default class SupplierController {
             new Date()
         )
         await SupplierDao.insertSupplier(newSupplier)
-        res.send({ state: true })
+        res.send({state: true})
     }
 
     public static async update(req: Request, res: Response) {
@@ -90,18 +90,18 @@ export default class SupplierController {
         const remark = req.body.remark
         const supplierCheck = await SupplierDao.selectSupplierByUid(supplierUid)
         if (ObjectUtil.checkObjectIsNull(supplierCheck)) {
-            res.send({ state: false, message: "数据不存在" })
+            res.send({state: false, message: "数据不存在"})
             return
         }
         const supplier = (supplierCheck as Supplier[])[0];
         const idCheck = await SupplierDao.selectSupplierById(id)
         if (!ObjectUtil.checkObjectIsNull(idCheck) && supplier.id !== id) {
-            res.send({ state: false, message: "id重复" })
+            res.send({state: false, message: "id重复"})
             return
         }
         const typeUidCheck = await SupplierTypeDao.selectSupplierTypeByUid(typeUid)
         if (ObjectUtil.checkObjectIsNull(typeUidCheck)) {
-            res.send({ state: false, message: "供应商分类不存在" })
+            res.send({state: false, message: "供应商分类不存在"})
             return
         }
         supplier.uid = supplierUid
@@ -117,11 +117,11 @@ export default class SupplierController {
         supplier.tin = tin
         supplier.remark = remark
         await SupplierDao.updateSupplier(supplier)
-        res.send({ state: true })
+        res.send({state: true})
     }
 
     public static async delete(req: Request, res: Response) {
-
+        //TODO:删除功能实现
     }
 
 }

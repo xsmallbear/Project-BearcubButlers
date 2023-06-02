@@ -12,13 +12,6 @@ const getSingleByUidParamVerify = [
     validationError
 ]
 
-const getSingleByNameParamVerify = [
-    param("supplierName")
-        .isLength({ min: 1, max: 8 })
-        .withMessage("supplierTypeUid长度不对"),
-    validationError
-]
-
 const createParamVerify = [
     body("name")
         .isLength({ min: 1, max: 10 })
@@ -51,8 +44,7 @@ const deleteParamVerify = [
 ]
 
 supplierType.get("/", SupplierTypeController.getAll)
-supplierType.get("/uid/:supplierTypeUid", getSingleByUidParamVerify, SupplierTypeController.getSingleByUid)
-supplierType.get("/name/:supplierName", getSingleByNameParamVerify, SupplierTypeController.getSingleByName)
+supplierType.get("/:supplierTypeUid", getSingleByUidParamVerify, SupplierTypeController.getSingleByUid)
 supplierType.post("/", createParamVerify, SupplierTypeController.create)
 supplierType.put("/:supplierTypeUid", updateParamVerify, SupplierTypeController.update)
 supplierType.delete("/:supplierTypeUid", deleteParamVerify, SupplierTypeController.delete)
