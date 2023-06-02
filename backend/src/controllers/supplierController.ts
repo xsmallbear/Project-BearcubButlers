@@ -12,7 +12,8 @@ export default class SupplierController {
      * @param res
      */
     public static async getAll(req: Request, res: Response) {
-        const suppliers = await SupplierDao.selectSupplierLimit(10, 0)
+        const {limit = 10, offset = 0} = req.query;
+        const suppliers = await SupplierDao.selectSupplierLimit(Number(limit), Number(offset))
         res.send({state: false, datas: suppliers})
     }
 
