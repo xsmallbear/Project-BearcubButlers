@@ -4,7 +4,7 @@ import Role from "../models/role";
 
 export default class RoleDao {
 
-    static async selectRoleLimit(limit: number, offset: number) {
+    static async selectRolesLimit(limit: number, offset: number) {
         return knexInstance
             .from<Role>("role")
             .limit(limit)

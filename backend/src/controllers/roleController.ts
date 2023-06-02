@@ -15,7 +15,7 @@ export default class RoleController {
         const limit = req.query.limit
         const offset = req.query.offset
 
-        const roles = await RoleDao.selectRoleLimit(Number(limit), Number(offset))
+        const roles = await RoleDao.selectRolesLimit(Number(limit), Number(offset))
         res.send({state: false, datas: roles})
     }
 
