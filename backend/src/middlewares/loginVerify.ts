@@ -1,9 +1,7 @@
-import { Request, Response, NextFunction } from "express";
+import {NextFunction, Request, Response} from "express";
 import JwtUtil from "../libs/jwt";
 import cache from "../libs/cache";
 import UserCache from "../types/userCache";
-import ObjectUtil from "../utils/objectUtil";
-import SystemUserController from "../controllers/systemUserController";
 import UserCacheUtil from "../utils/userCacheUtil";
 
 let filtersArray: string[] = []

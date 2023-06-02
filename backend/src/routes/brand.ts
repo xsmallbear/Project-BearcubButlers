@@ -1,4 +1,4 @@
-import express, { Router } from "express";
+import express, {Router} from "express";
 import BrandController from "../controllers/brandController";
 
 const brand: Router = express.Router()

@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 import SystemUser from "../models/systemUser"
 import PasswordUtil from '../utils/passwordUtil';
 import ParamUtil from '../utils/paramUtil';

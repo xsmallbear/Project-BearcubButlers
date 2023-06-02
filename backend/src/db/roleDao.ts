@@ -1,8 +1,6 @@
-import Supplier from "../models/supplier";
 import SystemUser from "../models/systemUser";
 import knexInstance from "../libs/knex"
 import Role from "../models/role";
-import RoleAndPermissions from "../models/roleAndPermissons";
 
 export default class RoleDao {
     /**

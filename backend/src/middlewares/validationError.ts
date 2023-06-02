@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import { validationResult } from 'express-validator';
+import {NextFunction, Request, Response} from 'express';
+import {validationResult} from 'express-validator';
 
 /**
  * validationError中间件

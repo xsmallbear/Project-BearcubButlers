@@ -1,4 +1,4 @@
-import express, { Router } from "express"
+import express, {Router} from "express"
 import ProdectTypeController from "../controllers/prodectTypeController";
 
 const prodectType: Router = express.Router();

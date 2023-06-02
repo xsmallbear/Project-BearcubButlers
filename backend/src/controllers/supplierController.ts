@@ -1,4 +1,4 @@
-import { Request, Response } from "express"
+import {Request, Response} from "express"
 import SupplierDao from "../db/supplierDao"
 import SupplierTypeDao from "../db/supplierTypeDao"
 import ObjectUtil from "../utils/objectUtil"

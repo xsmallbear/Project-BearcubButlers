@@ -1,11 +1,5 @@
-import Supplier from "../models/supplier";
-import SystemUser from "../models/systemUser";
 import knexInstance from "../libs/knex"
 import Permissions from "../models/permissions";
-import RoleDao from "./roleDao";
-import ObjectUtil from "../utils/objectUtil";
-import RoleAndPermissionsDao from "./roleAndPermissonsDao";
-import cache from "../libs/cache";
 import RoleAndPermissions from "../models/roleAndPermissons";
 import Role from "../models/role";
 

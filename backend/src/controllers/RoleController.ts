@@ -1,4 +1,4 @@
-import { Request, Response } from "express"
+import {Request, Response} from "express"
 import RoleDao from "../db/roleDao";
 import ObjectUtil from "../utils/objectUtil";
 import Role from "../models/role";

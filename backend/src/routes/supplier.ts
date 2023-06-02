@@ -1,7 +1,7 @@
-import express, { Router } from "express"
+import express, {Router} from "express"
 import SupplierController from "../controllers/supplierController";
 import validationError from "../middlewares/validationError";
-import { body, param } from "express-validator";
+import {body, param} from "express-validator";
 
 const supplier: Router = express.Router();
 

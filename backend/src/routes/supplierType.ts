@@ -1,5 +1,5 @@
-import express, { Router } from "express"
-import { body, param } from 'express-validator'
+import express, {Router} from "express"
+import {body, param} from 'express-validator'
 import SupplierTypeController from "../controllers/supplierTypeController";
 import validationError from "../middlewares/validationError";
 
