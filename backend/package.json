@@ -1,6 +1,7 @@
 {
-  "name": "project-bearcubbutlers-backend",
+  "name": "@project-bearcubbutlers/backend",
   "version": "1.0.0",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "dev": "nodemon app.ts",
@@ -8,7 +9,6 @@
     "start": "tsc && node ./dist/app.js"
   },
   "author": "",
-  "license": "ISC",
   "dependencies": {
     "@types/cors": "^2.8.13",
     "cors": "^2.8.5",

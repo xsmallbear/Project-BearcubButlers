@@ -1,0 +1,16 @@
+{
+  "name": "project-bearcubbutlers",
+  "version": "1.0.0",
+  "author": "",
+  "license": "GPL-3.0",
+  "directories": {
+    "doc": "docs"
+  },
+  "workspaces":[
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w backend"
+  }
+}
